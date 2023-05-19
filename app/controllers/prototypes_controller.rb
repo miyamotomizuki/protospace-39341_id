@@ -27,14 +27,15 @@ class PrototypesController < ApplicationController
     @prototype = Prototype.find(params[:id])
   end
 
-  def update
-    prototype = Prototype.find(params[:id])
-     if prototype.update(prototype_params)
-      redirect_to root_path
-    else
-      render :edit
-    end
+def update
+  @prototype = Prototype.find(params[:id])
+  if @prototype.update(prototype_params)
+    redirect_to root_path
+  else
+    flash.now[:error] = "必須項目を入力してください。"
+    render :edit
   end
+end
 
   def destroy
     @prototype = Prototype.find(params[:id])

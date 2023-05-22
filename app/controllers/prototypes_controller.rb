@@ -1,6 +1,5 @@
 class PrototypesController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
-  before_action :redirect_if_prototype_edit_attempted, only: [:edit]
 
   def index
     @prototypes = Prototype.includes(:user).order("created_at DESC")
@@ -55,11 +54,4 @@ class PrototypesController < ApplicationController
       redirect_to action: :index
     end
   end
-
-  def redirect_if_prototype_edit_attempted
-    unless current_user.admin? # ログイン状態のユーザーが管理者でない場合
-      redirect_to root_path
-    end
-  end
-
 end
